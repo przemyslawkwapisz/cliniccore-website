@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicCore - Architekci Cyfrowej Odporności</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #050a14;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Gears Background */
+        .gear-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .gear {
+            position: absolute;
+            border: 3px solid #1a2332;
+            border-radius: 50%;
+            animation: rotate 30s linear infinite;
+        }
+        
+        .gear::before,
+        .gear::after {
+            content: '';
+            position: absolute;
+            background: #1a2332;
+        }
+        
+        .gear::before {
+            width: 100%;
+            height: 20%;
+            top: 40%;
+            left: 0;
+        }
+        
+        .gear::after {
+            width: 20%;
+            height: 100%;
+            left: 40%;
+            top: 0;
+        }
+        
+        .gear-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-duration: 40s;
+        }
+        
+        .gear-2 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            right: 15%;
+            animation-duration: 35s;
+            animation-direction: reverse;
+        }
+        
+        .gear-3 {
+            width: 120px;
+            height: 120px;
+            bottom: 20%;
+            left: 20%;
+            animation-duration: 45s;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        /* Neon Button */
+        .neon-button {
+            background: linear-gradient(135deg, #00f0ff, #0080ff);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-button:hover {
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
+            transform: scale(1.05);
+        }
+        
+        /* Scroll Line Connector */
+        .scroll-line {
+            position: fixed;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(180deg, transparent, #00f0ff, transparent);
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        /* Animated Icons */
+        .icon-chaos {
+            animation: shake 2s ease-in-out infinite;
+        }
+        
+        .icon-harmony {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        /* Feature Grid Animation */
+        .feature-card {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        /* Dark overlay for hero */
+        .dark-overlay {
+            background: linear-gradient(135deg, rgba(5, 10, 20, 0.9), rgba(10, 20, 40, 0.8));
+        }
+        
+        /* Neon text glow */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Line Connector -->
+    <div class="scroll-line" id="scrollLine"></div>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Animated Gears Background -->
+        <div class="gear-container">
+            <div class="gear gear-1"></div>
+            <div class="gear gear-2"></div>
+            <div class="gear gear-3"></div>
+        </div>
+        
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 dark-overlay z-10"></div>
+        
+        <!-- Content -->
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                <span class="neon-text">ClinicCore</span>
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 text-gray-300">
+                Architekci Cyfrowej Odporności
+            </h2>
+            <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                Transformujemy chaos medyczny w harmonijne systemy automatyzacji
+            </p>
+            <button class="neon-button text-white font-bold py-4 px-10 rounded-full text-lg">
+                Start Audit
+            </button>
+        </div>
+    </section>
+    
+    <!-- Mission Section: Chaos vs Harmony -->
+    <section id="mission" class="relative py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 neon-text">
+                Nasza Misja
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Chaos Card -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="flex justify-center mb-6">
+                        <svg class="icon-chaos w-24 h-24 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.42-7-9V8.3l7-3.11 7 3.11V11c0 3.58-3.14 8.04-7 9z"/>
+                            <path d="M12 6L6 9v4c0 3.07 2.13 5.94 5 6.71V6z" opacity="0.3"/>
+                            <circle cx="12" cy="12" r="2" fill="#ef4444"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-red-400">Chaos</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>Przepełnione recepcje</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>Utracone wizyty</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>Manualne procesy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>Wypalenie zespołu</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Harmony Card -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="flex justify-center mb-6">
+                        <svg class="icon-harmony w-24 h-24 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="2" fill="#00f0ff"/>
+                            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-cyan-400">Harmonia</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">✓</span>
+                            <span>Automatyczne rezerwacje</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">✓</span>
+                            <span>100% wypełnienie</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">✓</span>
+                            <span>AI-powered workflow</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-cyan-400 mr-2">✓</span>
+                            <span>Zadowolony personel</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="relative py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 neon-text">
+                Nasze Rozwiązania
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Voice AI -->
+                <div class="glass-card feature-card rounded-2xl p-8">
+                    <div class="flex justify-center mb-6">
+                        <svg class="w-20 h-20 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Voice AI</h3>
+                    <p class="text-gray-400 text-center">
+                        Inteligentny asystent głosowy obsługujący rezerwacje 24/7 w naturalnym języku
+                    </p>
+                </div>
+                
+                <!-- Retention Loops -->
+                <div class="glass-card feature-card rounded-2xl p-8">
+                    <div class="flex justify-center mb-6">
+                        <svg class="w-20 h-20 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Retention Loops</h3>
+                    <p class="text-gray-400 text-center">
+                        Automatyczne przypomnienia i follow-upy zwiększające lojalność pacjentów
+                    </p>
+                </div>
+                
+                <!-- Smart Scheduling -->
+                <div class="glass-card feature-card rounded-2xl p-8">
+                    <div class="flex justify-center mb-6">
+                        <svg class="w-20 h-20 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            <circle cx="12" cy="14" r="2" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Smart Scheduling</h3>
+                    <p class="text-gray-400 text-center">
+                        Optymalizacja kalendarza z AI maksymalizująca wykorzystanie zasobów
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section id="cta" class="relative py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass-card rounded-2xl p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 neon-text">
+                    Gotowy na transformację?
+                </h2>
+                <p class="text-xl text-gray-400 mb-8">
+                    Dołącz do klinik, które już zautomatyzowały swoje procesy
+                </p>
+                <button class="neon-button text-white font-bold py-4 px-10 rounded-full text-lg">
+                    Umów bezpłatną konsultację
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="relative py-8 px-4 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto text-center text-gray-500">
+            <p>&copy; 2024 ClinicCore. Wszystkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // GSAP ScrollTrigger Setup
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Scroll Line Animation
+        gsap.to("#scrollLine", {
+            height: "100%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true
+            }
+        });
+        
+        // Hero Animation
+        gsap.from("#hero h1", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.3
+        });
+        
+        gsap.from("#hero h2", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.6
+        });
+        
+        gsap.from("#hero p", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: 0.9
+        });
+        
+        gsap.from("#hero button", {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            delay: 1.2
+        });
+        
+        // Feature Cards Animation
+        gsap.utils.toArray('.feature-card').forEach((card, index) => {
+            gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+        
+        // Mission Cards Animation
+        gsap.from("#mission .glass-card", {
+            opacity: 0,
+            x: (index) => index === 0 ? -100 : 100,
+            duration: 1,
+            stagger: 0.3,
+            scrollTrigger: {
+                trigger: "#mission",
+                start: "top 70%",
+                toggleActions: "play none none none"
+            }
+        });
+        
+        // CTA Animation
+        gsap.from("#cta .glass-card", {
+            opacity: 0,
+            scale: 0.9,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#cta",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            }
+        });
+    </script>
+</body>
+</html>
